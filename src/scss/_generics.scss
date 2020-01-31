@@ -1,0 +1,103 @@
+@import url('https://fonts.googleapis.com/css?family=Montserrat:100,100i,200,200i,300,300i,400,400i,500,500i,600,600i,700,700i,800,800i,900,900i&display=swap');
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  outline: none;
+  //scrollbar-width: thin;
+  //scrollbar-color: $green1 $gray1;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p,
+td,
+tr,
+.footer-copy {
+  cursor: default;
+}
+
+h1 {
+  font-size: 24px;
+  font-weight: bold;
+  line-height: 140%;
+}
+h2 {
+  font-size: 16px;
+  font-weight: bold;
+  line-height: 140%;
+}
+h3 {
+  font-size: 16px;
+  font-weight: 500;
+  line-height: 17px;
+}
+
+html,
+body {
+  margin: 0;
+  padding: 0;
+  width: 100%;
+}
+
+body {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 0;
+  margin: 0;
+  width: 100vw;
+  font-family: $base-font-family;
+  font-size: 14px;
+  font-weight: 400;
+  overflow-x: hidden;
+  //background-color: $gray1;
+  background-image: $gradient_bg;
+
+  p {
+    font-size: 14px;
+  }
+  button {
+    background: inherit;
+    background-image: none;
+    border: none;
+    cursor: pointer;
+  }
+
+  a {
+    text-decoration: none;
+    color: inherit;
+    cursor: pointer;
+  }
+}
+
+.blocked {
+  overflow: hidden;
+}
+
+//::-webkit-scrollbar {
+//  width: 3px;
+//}
+//
+///* Track */
+//::-webkit-scrollbar-track {
+//  background: $gray1;
+//  box-shadow: inset 0 100px 100px $gray1;
+//  border-radius: 10px;
+//}
+//
+///* Handle */
+//::-webkit-scrollbar-thumb {
+//  background: $green1;
+//  border-radius: 3px;
+//}
+//
+///* Handle on hover */
+//::-webkit-scrollbar-thumb:hover {
+//  background: $green1;
+//}
