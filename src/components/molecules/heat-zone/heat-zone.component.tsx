@@ -8,8 +8,16 @@ import { Tooltip } from '@components/atoms/tooltip';
 
 type Props = { classname?: string; to: string };
 
+const TootlipInfo = () => {
+  return <div>HERE WILL BE SHORT INFO</div>;
+};
+
 export const HeatZone = ({ classname, to }: Props) => {
-  return <StyledHeatZone to={to} routerParams={{id:"free-throws"}} className={classname}></StyledHeatZone>;
+  return (
+    <Tooltip title={<TootlipInfo />} interactive>
+      <StyledHeatZone to={to} className={classname} />
+    </Tooltip>
+  );
 };
 
 const StyledHeatZone = styled(Link)`
