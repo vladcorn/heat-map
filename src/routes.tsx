@@ -16,7 +16,7 @@ const routes = [
       {
         path: '/stats',
         component: Stats,
-        routes: [{ path: 'stats/:id', component: SingleStat }],
+        routes: [{ path: '/stats/:id', exact: true, component: SingleStat }],
       },
       { path: '/404', exact: true, component: NotFound },
       {
