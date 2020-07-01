@@ -6,12 +6,12 @@ import { ImageWrapper } from '@components/atoms/image-wrapper';
 import { HeatZone } from '@components/molecules/heat-zone';
 
 const heatzones = [
-  { title: 'lane-left-1' },
-  { title: 'lane-left-2' },
-  { title: 'lane-left-3' },
-  { title: 'free-throw' },
-  { title: 'lane-right-1' },
-  { title: 'lane-right-2' },
+  { title: 'lane-left-1', successShot: 30, allTime: 40 },
+  { title: 'lane-left-2', successShot: 15, allTime: 55 },
+  { title: 'lane-left-3', successShot: 3, allTime: 40 },
+  { title: 'free-throw', successShot: 123, allTime: 320 },
+  { title: 'lane-right-1', successShot: 30, allTime: 30 },
+  { title: 'lane-right-2', successShot: 192, allTime: 200 },
   { title: 'lane-right-3' },
 ];
 
@@ -28,6 +28,7 @@ export const HeatMap = (type: Props) => {
               key={idx}
               to={`/stats/${item.title}`}
               classname={item.title}
+              {...item}
             />
           );
         })}
@@ -50,7 +51,7 @@ const StyledHeatMap = styled(`div`)`
     &-2,
     &-3 {
       left: 31%;
-      
+
       @media screen and (max-width: ${theme.breakpoints.values.lg}px) {
         left: 30%;
       }
@@ -58,7 +59,7 @@ const StyledHeatMap = styled(`div`)`
 
     &-1 {
       top: 83.5%;
-      
+
       @media screen and (max-width: ${theme.breakpoints.values.lg}px) {
         top: 83%;
       }
@@ -73,7 +74,7 @@ const StyledHeatMap = styled(`div`)`
 
     &-3 {
       top: 67.7%;
-      
+
       @media screen and (max-width: ${theme.breakpoints.values.lg}px) {
         top: 67%;
       }

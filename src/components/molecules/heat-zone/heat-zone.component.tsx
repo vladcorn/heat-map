@@ -1,20 +1,99 @@
 import React from 'react';
-import { theme } from '@root/theme';
 import styled from 'styled-components';
 import { rgba } from 'polished';
+import cn from 'classnames';
 
 import { Link } from 'react-router-dom';
 import { Tooltip } from '@components/atoms/tooltip';
+import { Typography } from '@material-ui/core';
 
-type Props = { classname?: string; to: string };
-
-const TootlipInfo = () => {
-  return <div>HERE WILL BE SHORT INFO</div>;
+type Props = {
+  classname?: string;
+  to: string;
+  successShot?: number;
+  allTime?: number;
+};
+type TooltipInfoProps = {
+  successShot?: number;
+  allTime?: number;
 };
 
-export const HeatZone = ({ classname, to }: Props) => {
+const TootlipInfo = ({ successShot = 0, allTime = 0 }: TooltipInfoProps) => {
   return (
-    <Tooltip title={<TootlipInfo />} interactive>
+    <StyledTooltipInfo>
+      <div className='info-stat'>
+        <Typography variant={'subtitle2'} component={'h3'} noWrap>
+          Suc. Shot %
+        </Typography>
+        <Typography
+          className={cn({
+            bad:
+              (successShot / allTime) * 100 <= 35 &&
+              (successShot / allTime) * 100 != 0,
+            normal:
+              (successShot / allTime) * 100 > 35 &&
+              (successShot / allTime) * 100 <= 80,
+            perfect: (successShot / allTime) * 100 > 80,
+          })}
+        >
+          {isNaN((successShot / allTime) * 100)
+            ? 0
+            : ((successShot / allTime) * 100).toFixed(2)}
+          %
+        </Typography>
+      </div>
+      <div className='info-stat'>
+        <Typography variant={'subtitle2'} component={'h3'} noWrap>
+          Suc. Shot
+        </Typography>
+        <Typography>{successShot}</Typography>
+      </div>
+      <div className='info-stat'>
+        <Typography variant={'subtitle2'} component={'h3'} noWrap>
+          All Time
+        </Typography>
+        <Typography>{allTime}</Typography>
+      </div>
+    </StyledTooltipInfo>
+  );
+};
+const StyledTooltipInfo = styled(`div`)`
+  display: flex;
+  flex-direction: row;
+
+  .info-stat {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-right: 10px;
+    &:last-of-type {
+      margin-right: 0;
+    }
+
+    p {
+      font-weight: 700;
+      color: ${(p) => p.theme.palette.secondary.main};
+      &.bad {
+        color: ${(p) => p.theme.palette.error.main};
+      }
+      &.normal {
+        color: ${(p) => p.theme.palette.warning.main};
+      }
+      &.perfect {
+        color: ${(p) => p.theme.palette.success.main};
+      }
+    }
+  }
+`;
+
+export const HeatZone = ({ classname, to, successShot, allTime }: Props) => {
+  return (
+    <Tooltip
+      title={<TootlipInfo successShot={successShot} allTime={allTime} />}
+      interactive
+      arrow={true}
+    >
       <StyledHeatZone to={to} className={classname} />
     </Tooltip>
   );
