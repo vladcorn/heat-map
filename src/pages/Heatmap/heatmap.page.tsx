@@ -50,14 +50,15 @@ const StyledHeatMap = styled(`div`)`
     &-2,
     &-3 {
       left: 31%;
-    }
-    @media screen and (max-width: ${theme.breakpoints.values.lg}px) {
-      left: 30%;
+      
+      @media screen and (max-width: ${theme.breakpoints.values.lg}px) {
+        left: 30%;
+      }
     }
 
     &-1 {
       top: 83.5%;
-
+      
       @media screen and (max-width: ${theme.breakpoints.values.lg}px) {
         top: 83%;
       }
@@ -72,6 +73,7 @@ const StyledHeatMap = styled(`div`)`
 
     &-3 {
       top: 67.7%;
+      
       @media screen and (max-width: ${theme.breakpoints.values.lg}px) {
         top: 67%;
       }
