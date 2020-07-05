@@ -1,5 +1,6 @@
-const webpack = require('webpack');
 const path = require('path');
+const webpack = require('webpack');
+const dotenv = require('dotenv').config({ path: path.join(__dirname, '.env') });
 const resolveTsAliases = require('resolve-ts-aliases').resolveTsAliases;
 
 module.exports = {
@@ -18,9 +19,7 @@ module.exports = {
   },
   plugins: [
     new webpack.DefinePlugin({
-      'process.env': {
-        BROWSER: JSON.stringify(true),
-      },
+      'process.env': JSON.stringify(dotenv.parsed),
     }),
   ],
 };

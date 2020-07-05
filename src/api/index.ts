@@ -1,8 +1,13 @@
 import axios from 'axios';
-const API_KEY = '9774c2f5a696054eec0c5631cb81665a';
+
+const API_KEY = process.env.API_KEY;
+const API_BASE_URL = process.env.API_BASE_URL;
 
 const api = axios.create({
-  baseURL: 'http://localhost:8000',
+  baseURL: API_BASE_URL,
+  headers: {
+    'Content-Type': 'application/json',
+  },
 });
 
 const weatherApi = axios.create({
@@ -13,4 +18,12 @@ export const getWeatherFromGeolocation = (lat, long) => {
   return weatherApi
     .get(`?lat=${lat}&lon=${long}&appid=${API_KEY}&units=metric`)
     .then((r) => r.data);
+};
+
+export const getTraining = () => {
+  return api.get('/api/training').then((r) => r.data);
+};
+
+export const postTraining = (data) => {
+  return api.post('/api/training', data).then((r) => r.data);
 };
