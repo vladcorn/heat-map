@@ -1,7 +1,7 @@
 import { GET_WEATHER } from '@root/constants';
 
 const initialState = {
-  weather: {},
+  weatherData: {},
   weatherLoaded: false,
   weatherLoadedAt: null,
 };
@@ -11,7 +11,7 @@ export default function(state = initialState, { type, data }) {
     case GET_WEATHER:
       return {
         ...state,
-        weather: data,
+        weatherData: data,
         weatherLoaded: true,
         weatherLoadedAt: new Date(),
       };

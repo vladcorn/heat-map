@@ -6,6 +6,7 @@ import { HeatMap } from '@pages/Heatmap';
 import { Stats } from '@pages/Stats';
 import { SingleStat } from '@pages/SingleStat';
 import { NotFound } from '@pages/404';
+import { CreateTraining } from '@pages/CreateTraining';
 
 const routes = [
   {
@@ -13,6 +14,7 @@ const routes = [
     routes: [
       { path: '/', exact: true, component: Home },
       { path: '/heat-map', exact: true, component: HeatMap },
+      { path: '/create-training', exact: true, component: CreateTraining },
       {
         path: '/stats',
         component: Stats,

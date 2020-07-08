@@ -5,19 +5,28 @@ import courtBg from '@images/nba_court.jpg';
 import { ImageWrapper } from '@components/atoms/image-wrapper';
 import { HeatZone } from '@components/molecules/heat-zone';
 
-const heatzones = [
-  { title: 'lane-left-1', successShot: 30, allTime: 40 },
-  { title: 'lane-left-2', successShot: 15, allTime: 55 },
-  { title: 'lane-left-3', successShot: 3, allTime: 40 },
-  { title: 'free-throw', successShot: 123, allTime: 320 },
-  { title: 'lane-right-1', successShot: 30, allTime: 30 },
-  { title: 'lane-right-2', successShot: 192, allTime: 200 },
+const heatzonesMOCK = [
+  { title: 'lane-left-1', successShot: 30, total: 40 },
+  { title: 'lane-left-2', successShot: 15, total: 55 },
+  { title: 'lane-left-3', successShot: 3, total: 40 },
+  { title: 'free-throw', successShot: 123, total: 320 },
+  { title: 'lane-right-1', successShot: 30, total: 30 },
+  { title: 'lane-right-2', successShot: 192, total: 200 },
   { title: 'lane-right-3' },
 ];
 
-type Props = {};
+type Props = {
+  isTraining?: boolean;
+  heatzones?: [
+    {
+      title: string;
+      successShot?: number;
+      total?: number;
+    }
+  ];
+};
 
-export const HeatMap = (type: Props) => {
+export const HeatMap = ({ isTraining, heatzones = heatzonesMOCK }: Props) => {
   return (
     <StyledHeatMap>
       <div className='court-wrapper'>
@@ -25,6 +34,8 @@ export const HeatMap = (type: Props) => {
         {heatzones.map((item, idx) => {
           return (
             <HeatZone
+              title={item.title}
+              isTraining={isTraining}
               key={idx}
               to={`/stats/${item.title}`}
               classname={item.title}

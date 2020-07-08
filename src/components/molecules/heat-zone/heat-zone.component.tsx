@@ -1,24 +1,96 @@
-import React from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
 import { rgba } from 'polished';
 import cn from 'classnames';
 
 import { Link } from 'react-router-dom';
 import { Tooltip } from '@components/atoms/tooltip';
-import { Typography } from '@material-ui/core';
+import { Typography, TextField } from '@material-ui/core';
+import { Button } from '@components/atoms/button';
 
 type Props = {
+  title?: string;
   classname?: string;
   to: string;
   successShot?: number;
-  allTime?: number;
-};
-type TooltipInfoProps = {
-  successShot?: number;
-  allTime?: number;
+  total?: number;
+  isTraining?: boolean;
 };
 
-const TootlipInfo = ({ successShot = 0, allTime = 0 }: TooltipInfoProps) => {
+type TooltipInfoProps = {
+  successShot?: number;
+  total?: number;
+};
+
+type TooltipFormProps = {
+  title?: string;
+};
+
+const TooltipForm = ({ title }: TooltipFormProps) => {
+  const [stateForm, setStateForm] = useState({
+    id: title,
+    success: 0,
+    total: 0,
+  });
+  return (
+    <StyledTooltipForm>
+      <Typography component={'h4'} variant={'subtitle2'}>
+        {title.split('-').join(' ')}
+      </Typography>
+      <div className='form-wrapper'>
+        <TextField
+          className={'input-wrapper'}
+          label={'Success Shots'}
+          value={stateForm.success}
+          type='number'
+          title={'Success shots'}
+          onChange={(e) =>
+            setStateForm({ ...stateForm, success: e.target.value })
+          }
+        />
+        <TextField
+          className={'input-wrapper'}
+          label={'Total'}
+          type='number'
+          value={
+            stateForm.total <= stateForm.success
+              ? stateForm.success
+              : stateForm.total
+          }
+          onChange={(e) =>
+            setStateForm({ ...stateForm, total: e.target.value })
+          }
+        />
+        <Button variant={'contained'} color={'primary'}>
+          Send
+        </Button>
+      </div>
+    </StyledTooltipForm>
+  );
+};
+
+const StyledTooltipForm = styled('form')`
+  display: flex;
+  flex-direction: column;
+
+  .input-wrapper {
+    margin-right: 10px;
+  }
+
+  h4 {
+    text-transform: capitalize;
+  }
+
+  .form-wrapper {
+    display: flex;
+
+    button {
+      width: 100%;
+    }
+  }
+`;
+
+const TootlipInfo = ({ successShot = 0, total = 0 }: TooltipInfoProps) => {
   return (
     <StyledTooltipInfo>
       <div className='info-stat'>
@@ -28,17 +100,17 @@ const TootlipInfo = ({ successShot = 0, allTime = 0 }: TooltipInfoProps) => {
         <Typography
           className={cn({
             bad:
-              (successShot / allTime) * 100 <= 35 &&
-              (successShot / allTime) * 100 != 0,
+              (successShot / total) * 100 <= 35 &&
+              (successShot / total) * 100 != 0,
             normal:
-              (successShot / allTime) * 100 > 35 &&
-              (successShot / allTime) * 100 <= 80,
-            perfect: (successShot / allTime) * 100 > 80,
+              (successShot / total) * 100 > 35 &&
+              (successShot / total) * 100 <= 80,
+            perfect: (successShot / total) * 100 > 80,
           })}
         >
-          {isNaN((successShot / allTime) * 100)
+          {isNaN((successShot / total) * 100)
             ? 0
-            : ((successShot / allTime) * 100).toFixed(2)}
+            : ((successShot / total) * 100).toFixed(2)}
           %
         </Typography>
       </div>
@@ -50,9 +122,9 @@ const TootlipInfo = ({ successShot = 0, allTime = 0 }: TooltipInfoProps) => {
       </div>
       <div className='info-stat'>
         <Typography variant={'subtitle2'} component={'h3'} noWrap>
-          All Time
+          Total
         </Typography>
-        <Typography>{allTime}</Typography>
+        <Typography>{total}</Typography>
       </div>
     </StyledTooltipInfo>
   );
@@ -87,10 +159,23 @@ const StyledTooltipInfo = styled(`div`)`
   }
 `;
 
-export const HeatZone = ({ classname, to, successShot, allTime }: Props) => {
+export const HeatZone = ({
+  title,
+  classname,
+  to,
+  successShot,
+  total,
+  isTraining,
+}: Props) => {
   return (
     <Tooltip
-      title={<TootlipInfo successShot={successShot} allTime={allTime} />}
+      title={
+        isTraining ? (
+          <TooltipForm title={title} />
+        ) : (
+          <TootlipInfo successShot={successShot} total={total} />
+        )
+      }
       interactive
       arrow={true}
     >

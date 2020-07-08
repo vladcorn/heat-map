@@ -9,7 +9,7 @@ type WeatherUIProps = {};
 
 export const WeatherUI = (props: WeatherUIProps) => {
   const weatherState = useSelector((store) => store.weather);
-  const { weather, weatherLoaded, weatherLoadedAt } = weatherState;
+  const { weatherData, weatherLoaded, weatherLoadedAt } = weatherState;
   const dispatch = useDispatch();
   useEffect(() => {
     if (
@@ -22,11 +22,11 @@ export const WeatherUI = (props: WeatherUIProps) => {
 
   return (
     <StyledWeatherUI>
-      {weather && weather.main ? (
+      {weatherData && weatherData.main ? (
         <>
-          <p>{weather.main.temp} °C</p>
-          <p>{weather.main.pressure}</p>
-          <p>{weather.main.humidity} %</p>
+          <p>{weatherData.main.temp} °C</p>
+          <p>{weatherData.main.pressure}</p>
+          <p>{weatherData.main.humidity} %</p>
         </>
       ) : (
         <CircularProgress color='secondary' />
