@@ -43,25 +43,33 @@ const TooltipForm = ({ title }: TooltipFormProps) => {
           label={'Success Shots'}
           value={stateForm.success}
           type='number'
+          InputLabelProps={{ shrink: true }}
+          inputProps={{ min: 0 }}
           title={'Success shots'}
-          onChange={(e) =>
-            setStateForm({ ...stateForm, success: e.target.value })
-          }
+          onChange={(e) => {
+            if (stateForm.success >= stateForm.total) {
+              setStateForm({ total: e.target.value, success: e.target.value });
+            }
+          }}
         />
         <TextField
           className={'input-wrapper'}
           label={'Total'}
           type='number'
-          value={
-            stateForm.total <= stateForm.success
-              ? stateForm.success
-              : stateForm.total
-          }
+          inputProps={{ min: stateForm.success }}
+          value={stateForm.total}
           onChange={(e) =>
             setStateForm({ ...stateForm, total: e.target.value })
           }
         />
-        <Button variant={'contained'} color={'primary'}>
+        <Button
+          variant={'contained'}
+          color={'primary'}
+          onClick={() => {
+            console.log('sendData', stateForm);
+            setStateForm({ ...stateForm, success: 0, total: 0 });
+          }}
+        >
           Send
         </Button>
       </div>
@@ -75,6 +83,12 @@ const StyledTooltipForm = styled('form')`
 
   .input-wrapper {
     margin-right: 10px;
+
+    .MuiFormLabel-root {
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
   }
 
   h4 {
@@ -83,7 +97,6 @@ const StyledTooltipForm = styled('form')`
 
   .form-wrapper {
     display: flex;
-
     button {
       width: 100%;
     }
