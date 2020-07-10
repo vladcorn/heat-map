@@ -5,9 +5,11 @@ import { CircularProgress } from '@material-ui/core';
 import { useDispatch, useSelector } from 'react-redux';
 import { getWeather } from '@components/atoms/weatherUI/actions';
 
-type WeatherUIProps = {};
+type WeatherUIProps = {
+  className?: string;
+};
 
-export const WeatherUI = (props: WeatherUIProps) => {
+export const WeatherUI = ({ className }: WeatherUIProps) => {
   const weatherState = useSelector((store) => store.weather);
   const { weatherData, weatherLoaded, weatherLoadedAt } = weatherState;
   const dispatch = useDispatch();
@@ -21,7 +23,7 @@ export const WeatherUI = (props: WeatherUIProps) => {
   }, []);
 
   return (
-    <StyledWeatherUI>
+    <StyledWeatherUI className={className}>
       {weatherData && weatherData.main ? (
         <>
           <p>{weatherData.main.temp} °C</p>

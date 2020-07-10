@@ -46,6 +46,11 @@ body {
   width: 100%;
 }
 
+main {
+  margin-top: 70px;
+  flex: 1;
+}
+
 body {
   display: flex;
   flex-direction: column;
@@ -62,6 +67,10 @@ body {
 
   p {
     font-size: 14px;
+  }
+  #root {
+    width: 100vw;
+    min-height: 100vh;
   }
 
   button {

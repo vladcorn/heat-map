@@ -9,10 +9,16 @@ const heatzonesMOCK = [
   { title: 'lane-left-1', successShot: 30, total: 40 },
   { title: 'lane-left-2', successShot: 15, total: 55 },
   { title: 'lane-left-3', successShot: 3, total: 40 },
+  { title: 'lane-left-1-backboard', successShot: 30, total: 40 },
+  { title: 'lane-left-2-backboard', successShot: 15, total: 55 },
+  { title: 'lane-left-3-backboard', successShot: 3, total: 40 },
   { title: 'free-throw', successShot: 123, total: 320 },
   { title: 'lane-right-1', successShot: 30, total: 30 },
   { title: 'lane-right-2', successShot: 192, total: 200 },
   { title: 'lane-right-3' },
+  { title: 'lane-right-1-backboard', successShot: 30, total: 30 },
+  { title: 'lane-right-2-backboard', successShot: 192, total: 200 },
+  { title: 'lane-right-3-backboard' },
 ];
 
 type Props = {
@@ -67,8 +73,18 @@ const StyledHeatMap = styled(`div`)`
         left: 30%;
       }
     }
+    &-1-backboard,
+    &-2-backboard,
+    &-3-backboard {
+      left: calc(31% - 23px);
 
-    &-1 {
+      @media screen and (max-width: ${theme.breakpoints.values.lg}px) {
+        left: calc(30% - 23px);
+      }
+    }
+
+    &-1,
+    &-1-backboard {
       top: 83.5%;
 
       @media screen and (max-width: ${theme.breakpoints.values.lg}px) {
@@ -76,14 +92,16 @@ const StyledHeatMap = styled(`div`)`
       }
     }
 
-    &-2 {
+    &-2,
+    &-2-backboard {
       top: 74.5%;
       @media screen and (max-width: ${theme.breakpoints.values.lg}px) {
         top: 74%;
       }
     }
 
-    &-3 {
+    &-3,
+    &-3-backboard {
       top: 67.7%;
 
       @media screen and (max-width: ${theme.breakpoints.values.lg}px) {
@@ -98,8 +116,14 @@ const StyledHeatMap = styled(`div`)`
     &-3 {
       left: 67%;
     }
+    &-1-backboard,
+    &-2-backboard,
+    &-3-backboard {
+      left: calc(67% + 23px);
+    }
 
-    &-1 {
+    &-1,
+    &-1-backboard {
       top: 83.5%;
 
       @media screen and (max-width: ${theme.breakpoints.values.lg}px) {
@@ -107,14 +131,16 @@ const StyledHeatMap = styled(`div`)`
       }
     }
 
-    &-2 {
+    &-2,
+    &-2-backboard {
       top: 74.5%;
       @media screen and (max-width: ${theme.breakpoints.values.lg}px) {
         top: 74%;
       }
     }
 
-    &-3 {
+    &-3,
+    &-3-backboard {
       top: 67.7%;
       @media screen and (max-width: ${theme.breakpoints.values.lg}px) {
         top: 67%;

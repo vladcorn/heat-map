@@ -28,7 +28,7 @@ type TooltipFormProps = {
 
 const TooltipForm = ({ title }: TooltipFormProps) => {
   const [stateForm, setStateForm] = useState({
-    id: title,
+    name: title,
     success: 0,
     total: 0,
   });
@@ -48,8 +48,12 @@ const TooltipForm = ({ title }: TooltipFormProps) => {
           title={'Success shots'}
           onChange={(e) => {
             if (stateForm.success >= stateForm.total) {
-              setStateForm({ total: e.target.value, success: e.target.value });
+              return setStateForm({
+                total: e.target.value,
+                success: e.target.value,
+              });
             }
+            setStateForm({ ...stateForm, success: e.target.value });
           }}
         />
         <TextField
@@ -58,9 +62,12 @@ const TooltipForm = ({ title }: TooltipFormProps) => {
           type='number'
           inputProps={{ min: stateForm.success }}
           value={stateForm.total}
-          onChange={(e) =>
-            setStateForm({ ...stateForm, total: e.target.value })
-          }
+          onChange={(e) => {
+            if (stateForm.success >= e.target.value) {
+              return setStateForm({ ...stateForm, total: stateForm.success });
+            }
+            setStateForm({ ...stateForm, total: e.target.value });
+          }}
         />
         <Button
           variant={'contained'}
