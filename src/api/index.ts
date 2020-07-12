@@ -6,7 +6,11 @@ const API_BASE_URL = process.env.API_BASE_URL;
 const api = axios.create({
   baseURL: API_BASE_URL,
   headers: {
-    'Content-Type': 'application/json',
+    Accept: 'application/json;charset=UTF-8',
+    'Content-Type': 'application/json;charset=UTF-8',
+    'Access-Control-Allow-Origin': '*',
+    'X-Requested-With': 'XMLHttpRequest',
+    'Access-Control-Allow-Methods': 'GET,POST,PUT,DELETE',
   },
 });
 
