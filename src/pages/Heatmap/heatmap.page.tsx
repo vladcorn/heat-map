@@ -32,7 +32,11 @@ type Props = {
   ];
 };
 
-export const HeatMap = ({ isTraining, heatzones = heatzonesMOCK }: Props) => {
+export const HeatMap = ({
+  isTraining,
+  sendData,
+  heatzones = heatzonesMOCK,
+}: Props) => {
   return (
     <StyledHeatMap>
       <div className='court-wrapper'>

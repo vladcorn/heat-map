@@ -7,6 +7,8 @@ import { Link } from 'react-router-dom';
 import { Tooltip } from '@components/atoms/tooltip';
 import { Typography, TextField } from '@material-ui/core';
 import { Button } from '@components/atoms/button';
+import { useDispatch, useSelector } from 'react-redux';
+import { createTraining } from '@pages/CreateTraining/actions';
 
 type Props = {
   title?: string;
@@ -28,10 +30,14 @@ type TooltipFormProps = {
 
 const TooltipForm = ({ title }: TooltipFormProps) => {
   const [stateForm, setStateForm] = useState({
-    name: title,
+    type: title,
     success: 0,
     total: 0,
+    fail: 0,
   });
+  const trainingData = useSelector((store) => store.training);
+  const dispatch = useDispatch();
+
   return (
     <StyledTooltipForm>
       <Typography component={'h4'} variant={'subtitle2'}>
@@ -49,11 +55,12 @@ const TooltipForm = ({ title }: TooltipFormProps) => {
           onChange={(e) => {
             if (stateForm.success >= stateForm.total) {
               return setStateForm({
-                total: e.target.value,
-                success: e.target.value,
+                ...stateForm,
+                total: Number(e.target.value),
+                success: Number(e.target.value),
               });
             }
-            setStateForm({ ...stateForm, success: e.target.value });
+            setStateForm({ ...stateForm, success: Number(e.target.value) });
           }}
         />
         <TextField
@@ -66,14 +73,26 @@ const TooltipForm = ({ title }: TooltipFormProps) => {
             if (stateForm.success >= e.target.value) {
               return setStateForm({ ...stateForm, total: stateForm.success });
             }
-            setStateForm({ ...stateForm, total: e.target.value });
+            setStateForm({ ...stateForm, total: Number(e.target.value) });
           }}
         />
         <Button
           variant={'contained'}
           color={'primary'}
           onClick={() => {
-            console.log('sendData', stateForm);
+            dispatch(
+              createTraining({
+                ...trainingData,
+                exercises: [
+                  ...trainingData.exercises,
+                  {
+                    ...stateForm,
+                    trainingId: trainingData.id,
+                    fail: stateForm.total - stateForm.success,
+                  },
+                ],
+              })
+            );
             setStateForm({ ...stateForm, success: 0, total: 0 });
           }}
         >
